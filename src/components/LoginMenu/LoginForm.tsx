@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ import './LoginForms.css'
 
 const LoginForm = () => {
 
-  const [url, setUrl] = useState<string>('https://localhost:7083/api/Users');
+  const [url] = useState<string>('https://localhost:7083/api/Users');
   const Navigate = useNavigate();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');

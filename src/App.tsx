@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+// import { useState } from 'react'
+import { BrowserRouter as Routes, Route, BrowserRouter } from 'react-router-dom';
 import LoginMenu from './Pages/LoginMenu';
 import RegisterPage from './Pages/RegisterPage';
 
 function App() {  
 
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/FinancialWeb/" element={<LoginMenu />} />
         <Route path="/FinancialWeb/register" element={<RegisterPage />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   )
 }
 
