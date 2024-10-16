@@ -30,7 +30,7 @@ const Protected: React.FC<ProtectedProps> = ({ component: Component }) => {
         setTimeout(() => {
           console.log(promiseUser.status)
           setAcces(true)
-        }, 2000);
+        }, 50);
     } else{
       setTimeout(() => {
         setAcces(false)

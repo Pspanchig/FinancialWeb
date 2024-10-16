@@ -7,7 +7,7 @@ const RegisterForms = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setconfirmPassword] = useState<string>('')
-    const [api, setApi] = useState<string>('https://localhost:7083/api/Users')
+    const [api] = useState<string>('https://localhost:7083/api/Users')
     const Navigate = useNavigate();
         
     async function ConnectToServer(): Promise<any>{
@@ -20,7 +20,7 @@ const RegisterForms = () => {
         let UserInformation : User = CreateUser();
 
         try{
-            const response = await fetch(api,{
+            await fetch(api,{
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
