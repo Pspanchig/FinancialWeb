@@ -16,34 +16,49 @@ const LoginForm = () => {
       const response = await fetch(url);
       const data = await response.json();
       return data;
-    } catch{
-      alert('There was a problem with the server connection');
+    } catch(error){
+      alert('There was a problem with the server connection:' + error);
     }
   }
 
   async function AllowLoggin(): Promise<void>{
-    const users = await UsersFromDB();    
-    const findUser = users.find((u: { username: string , password: string}) => u.username === username && u.password === password); 
-    localStorage.setItem("CurrentUser", findUser.id);        
+    const users = await UsersFromDB();   
     
-    const updateState: User = {
-      username: findUser.username,
-      email: findUser.email,
-      password: findUser.password,
-      status: true          
-    };
+    if(username !== null && password !== null){
+      const findUser = users.find((u: { username: string , password: string}) => u.username === username.toLowerCase() && u.password === password);     
+      
+      if(findUser !== undefined){
+        const updateState: User = {
+          username: findUser.username,
+          email: findUser.email,
+          password: findUser.password,
+          status: true          
+        };
+        
+        const putUrl : string = `${url}/${findUser.id}`                
+        CallEndPoint(putUrl,updateState,findUser);
+      } else{
+        alert("User not found");
+      }
+    }
+  }
 
-    const putUrl : string = `${url}/${findUser.id}`
+  async function CallEndPoint(putUrl: string, updateState: User, findUser: any) : Promise<any>{
+    try{
+      localStorage.setItem("CurrentUser", findUser.id);
+      fetch(putUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateState),
+      })
+      .then()
+      .then(() => Navigate('/FinancialWeb/App/'))
 
-    fetch(putUrl, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updateState),
-    })
-    .then()
-    .then(() => Navigate('/dashboard'))
+    } catch(error){
+      alert('There was a problem with the server connection:' + error);
+    }
   }
 
   return (
